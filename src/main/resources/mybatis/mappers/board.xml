@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="board">
+
+	<select id="list" resultType="com.javaex.vo.BoardVo">
+	<![CDATA[
+	SELECT
+	    rn,
+	    no,
+	    title,
+	    content,
+	    hit,
+	    reg_date,
+	    user_no,
+	    name
+	FROM(
+			SELECT
+			    ROWNUM rn,
+			    no,
+			    title,
+			    content,
+			    hit,
+			    reg_date,
+			    user_no,
+			    name
+			FROM
+			    	(
+			        SELECT
+			            b.no,
+			            b.title,
+			            b.content,
+			            b.hit,
+			            to_char(b.reg_date, 'YYYY-MM-DD') AS reg_date,
+			            b.user_no,
+			            s.name
+			        FROM
+			            board  b,
+			            users  s
+			        WHERE
+			            b.user_no = s.no
+			        ORDER BY
+			            b.no DESC
+			   	 	) 
+	) where		rn  >=#{start} and 
+			    rn  <=#{end}  
+			]]>
+	</select>
+
+	<insert id="insert" parameterType="com.javaex.vo.BoardVo">
+	<![CDATA[
+		INSERT INTO board VALUES (
+		seq_board_no.NEXTVAL,
+		#{title},
+		#{content},
+		0,
+		sysdate,
+		#{user_no}
+		)
+	]]>
+	</insert>
+
+	<select id="selectOne" parameterType="int"
+		resultType="com.javaex.vo.BoardVo">
+	<![CDATA[
+		SELECT	
+				b.no,
+				b.title,
+				b.content,
+				b.hit,
+				to_char(b.reg_date, 'YYYY-MM-DD') as reg_date,
+				b.user_no,
+				s.name
+		FROM	
+				board b,
+				users s
+		where
+				b.user_no = s.no
+				and b.no=#{no}
+	]]>
+	</select>
+	
+	<update id="update" parameterType="com.javaex.vo.BoardVo">
+	<![CDATA[
+		UPDATE 	board
+		SET		title = #{title},
+				content = #{content}
+		WHERE	no = #{no}
+	]]>
+	</update>
+	
+	<delete id="delete" parameterType="int">
+	<![CDATA[
+		DELETE 		FROM board
+		WHERE		no = #{no}
+	]]>
+	</delete>
+	
+	<select id="searchUser" resultType="com.javaex.vo.BoardVo">
+	<![CDATA[
+		SELECT 	
+				b.no,
+				b.title,
+				b.content,
+				b.hit,
+				to_char(b.reg_date, 'YYYY-MM-DD') as reg_date,
+				b.user_no,
+				s.name
+		FROM 	
+				board b,
+				users s
+		where 	
+				b.user_no =s.no
+		and 	b.title LIKE #{keyword}
+		ORDER BY b.no DESC
+	]]>
+	</select>
+	
+	<update id="hit" parameterType="int">
+	<![CDATA[
+			update board
+			set hit= hit+1 
+			where no = #{no} 
+	]]>
+	</update>
+	
+	<select id="count" resultType="int">
+		<![CDATA[
+			SELECT
+			    count(no)
+			FROM
+			    board
+		]]>
+	</select>
+	
+</mapper>

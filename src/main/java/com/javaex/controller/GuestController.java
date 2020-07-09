@@ -15,47 +15,42 @@ import com.javaex.vo.GuestbookVo;
 @Controller
 @RequestMapping("/guest")
 public class GuestController {
-	
+
 	@Autowired
 	private GuestbookService guestService;
-	
+
 	@RequestMapping("/list")
 	public String list(Model model) {
 		List<GuestbookVo> gList = guestService.list();
-		model.addAttribute("gList",gList);
-		
+		model.addAttribute("gList", gList);
+
 		return "guestbook/addList";
 	}
-	
+
 	@RequestMapping("/add")
 	public String add(@ModelAttribute GuestbookVo guestVo) {
 		guestService.add(guestVo);
-		
+
 		return "redirect:/guest/list";
 	}
-	
+
 	@RequestMapping("/deleteForm")
-	public String deleteForm(Model model ,@RequestParam int no) {
+	public String deleteForm(Model model, @RequestParam int no) {
 		model.addAttribute("no", no);
-		
+
 		return "guestbook/deleteForm";
 	}
-	
+
 	@RequestMapping("/delete")
-	public String delete(Model model ,@ModelAttribute GuestbookVo guestVo,@RequestParam int no) {
+	public String delete(Model model, @ModelAttribute GuestbookVo guestVo, @RequestParam int no) {
 		int count = guestService.delete(guestVo);
-		
-		if(count == 0) {
+
+		if (count == 0) {
 			model.addAttribute("no", no);
 			return "redirect:/guest/deleteForm?result=fail";
-		}
-		else {
+		} else {
 			return "redirect:/guest/list";
 		}
 	}
-	
-
-
-
 
 }
