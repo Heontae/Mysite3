@@ -41,7 +41,7 @@
 			<!-- //content-head -->
 
 			<div id="guestbook">
-				<form action="${pageContext.request.contextPath}/guest/delete" method="get">
+				<form action="${pageContext.request.contextPath}/guest/delete" method="post">
 					<table id="guestDelete">
 						<colgroup>
 							<col style="width: 10%;">
@@ -65,7 +65,7 @@
 		<!-- //content  -->
 		<div class="clear"></div>
 
-		<div id="footer">Copyright ⓒ 2020 황일영. All right reserved</div>
+		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 
 	</div>

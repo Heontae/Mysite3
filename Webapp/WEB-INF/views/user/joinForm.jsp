@@ -45,7 +45,7 @@
 			<div id="user">
 				<div id="joinForm">
 					<form action="${pageContext.request.contextPath}/user/join"
-						method="get">
+						method="post">
 
 						<!-- 아이디 -->
 						<div class="form-group">

@@ -43,7 +43,7 @@
 			<div id="user">
 				<div id="loginForm">
 					<form action="${pageContext.request.contextPath}/user/login"
-						method="get">
+						method="post">
 
 						<!-- 아이디 -->
 						<div class="form-group">
