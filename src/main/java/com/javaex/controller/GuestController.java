@@ -42,11 +42,18 @@ public class GuestController {
 	}
 	
 	@RequestMapping("/delete")
-	public String delete(@ModelAttribute GuestbookVo guestVo) {
-		guestService.delete(guestVo);
+	public String delete(Model model ,@ModelAttribute GuestbookVo guestVo,@RequestParam int no) {
+		int count = guestService.delete(guestVo);
 		
-		return "redirect:/guest/list";
+		if(count == 0) {
+			model.addAttribute("no", no);
+			return "redirect:/guest/deleteForm?result=fail";
+		}
+		else {
+			return "redirect:/guest/list";
+		}
 	}
+	
 
 
 

@@ -46,7 +46,6 @@ public class UserController {
 			session.setAttribute("session", authVo);
 			return "redirect:/main";
 		} else {
-			
 			return "redirect:/user/loginForm?result=fail";
 		}
 	}

@@ -6,10 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet"
-	type="text/css">
-<link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet"
-	type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/guestbook.css"
+	rel="stylesheet" type="text/css">
 
 </head>
 
@@ -41,7 +41,8 @@
 			<!-- //content-head -->
 
 			<div id="guestbook">
-				<form action="${pageContext.request.contextPath}/guest/delete" method="post">
+				<form action="${pageContext.request.contextPath}/guest/delete"
+					method="post">
 					<table id="guestDelete">
 						<colgroup>
 							<col style="width: 10%;">
@@ -56,10 +57,13 @@
 							<td><a href="/guestbook2/gbc">[메인으로 돌아가기]</a></td>
 						</tr>
 					</table>
-					<input type='hidden' name="no" value="${no }"> 
+					<input type='hidden' name="no" value="${no }">
 				</form>
 
 			</div>
+			<c:if test="${param.result eq 'fail' }">
+				<p>비밀번호를 틀렸습니다. 다시 입력해주세요</p>
+			</c:if>
 			<!-- //guestbook -->
 		</div>
 		<!-- //content  -->
