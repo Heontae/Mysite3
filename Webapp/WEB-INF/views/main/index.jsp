@@ -43,7 +43,7 @@
 						스프링(DispatchedServlet)과MVC 방식으로 제작되었습니다.<br> <br> 자바 수업 + 데이터베이스
 						수업 + 웹프로그래밍 수업<br> 배운 거 있는거 없는 거 다 합쳐서 만들어 놓은 사이트 입니다.<br>
 						<br> (자유롭게 꾸며보세요!!)<br> <br> <br> <a class=""
-							href="">[방명록에 글 남기기]</a>
+							href="${pageContext.request.contextPath}/guest/list">[방명록에 글 남기기]</a>
 					</p>
 				</div>
 				<!-- //greetings -->
