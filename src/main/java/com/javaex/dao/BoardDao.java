@@ -1,6 +1,8 @@
 package com.javaex.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,7 @@ public class BoardDao {
 	SqlSession sqlsession;
 	
 	public List<BoardVo> selectList(BoardVo boardVo){
+	
 		List<BoardVo> bList=sqlsession.selectList("board.list",boardVo);
 		return bList;
 	}
@@ -35,18 +38,12 @@ public class BoardDao {
 		return sqlsession.delete("board.delete",no);
 	}
 	
-	public List<BoardVo> searchUser(String keyword) {
-		List<BoardVo> bList=sqlsession.selectList("board.searchUser",keyword);
-
-		return bList;
-	}
-	
 	public int hit(int no){
 		
 		return sqlsession.update("board.hit",no);
 	}
 	
-	public int count() {
-		return sqlsession.selectOne("board.count");
+	public int count(String keyword) {
+		return sqlsession.selectOne("board.count",keyword);
 	}
 }

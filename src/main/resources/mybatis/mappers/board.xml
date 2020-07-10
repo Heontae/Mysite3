@@ -3,10 +3,10 @@
 
 <mapper namespace="board">
 
-	<select id="list" resultType="com.javaex.vo.BoardVo">
+	<select id="list" parameterType="com.javaex.vo.BoardVo"
+		resultType="com.javaex.vo.BoardVo">
 	<![CDATA[
 	SELECT
-	    rn,
 	    no,
 	    title,
 	    content,
@@ -39,12 +39,19 @@
 			            users  s
 			        WHERE
 			            b.user_no = s.no
-			        ORDER BY
+		]]>
+		<if test='keyword != null'>
+			and b.title LIKE '%'||#{keyword}||'%'
+		</if>		
+			<![CDATA[
+		 			        ORDER BY
 			            b.no DESC
+			   	 	)
 			   	 	) 
-	) where		rn  >=#{start} and 
-			    rn  <=#{end}  
+			where		rn  >=#{start}
+			and		    rn  <=#{end}  
 			]]>
+
 	</select>
 
 	<insert id="insert" parameterType="com.javaex.vo.BoardVo">
@@ -79,7 +86,7 @@
 				and b.no=#{no}
 	]]>
 	</select>
-	
+
 	<update id="update" parameterType="com.javaex.vo.BoardVo">
 	<![CDATA[
 		UPDATE 	board
@@ -88,34 +95,14 @@
 		WHERE	no = #{no}
 	]]>
 	</update>
-	
+
 	<delete id="delete" parameterType="int">
 	<![CDATA[
 		DELETE 		FROM board
 		WHERE		no = #{no}
 	]]>
 	</delete>
-	
-	<select id="searchUser" resultType="com.javaex.vo.BoardVo">
-	<![CDATA[
-		SELECT 	
-				b.no,
-				b.title,
-				b.content,
-				b.hit,
-				to_char(b.reg_date, 'YYYY-MM-DD') as reg_date,
-				b.user_no,
-				s.name
-		FROM 	
-				board b,
-				users s
-		where 	
-				b.user_no =s.no
-		and 	b.title LIKE #{keyword}
-		ORDER BY b.no DESC
-	]]>
-	</select>
-	
+
 	<update id="hit" parameterType="int">
 	<![CDATA[
 			update board
@@ -123,14 +110,17 @@
 			where no = #{no} 
 	]]>
 	</update>
-	
-	<select id="count" resultType="int">
+
+	<select id="count" resultType="int" parameterType="String">
 		<![CDATA[
 			SELECT
-			    count(no)
+			    COUNT(no)
 			FROM
 			    board
 		]]>
+		<if test="value  != null">
+			where title like  '%'||#{keyword}||'%'
+		</if>
 	</select>
-	
+
 </mapper>

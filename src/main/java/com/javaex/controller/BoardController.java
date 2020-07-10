@@ -1,6 +1,5 @@
 package com.javaex.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -23,12 +22,19 @@ public class BoardController {
 	private BoardService boardService;
 
 	@RequestMapping("/list")
-	public String list(Model model,@RequestParam int page) {
-		List<Integer> list = new ArrayList<Integer>();
-		List<BoardVo> bList = boardService.list(page, list);
-		
+	public String list(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
+			@RequestParam(value = "keyword", required = false) String keyword) {
+
+		// 전체 리스트(검색가능)
+		List<BoardVo> bList = boardService.list(page, keyword);
 		model.addAttribute("bList", bList);
-		model.addAttribute("list", list);
+
+		// 검색하고 페이지 이동해도 키워드값 유지
+		model.addAttribute("keyword", boardService.keyword(keyword));
+
+		// 밑에 페이지 갯수
+		int count = boardService.Page(keyword);
+		model.addAttribute("count", count);
 
 		return "board/list";
 	}
@@ -40,46 +46,39 @@ public class BoardController {
 	}
 
 	@RequestMapping("/write")
-	public String wirte(@ModelAttribute BoardVo boardVo,HttpSession session) {
-		boardVo.setUser_no(((UserVo)session.getAttribute("session")).getNo());
-		
+	public String wirte(@ModelAttribute BoardVo boardVo, HttpSession session) {
+		boardVo.setUser_no(((UserVo) session.getAttribute("session")).getNo());
+
 		boardService.write(boardVo);
 		return "redirect:/board/list";
 	}
-	
+
 	@RequestMapping("/read")
-	public String read(Model model,@RequestParam int no) {
-		BoardVo boardVo=boardService.selectOne(no);
+	public String read(Model model, @RequestParam int no) {
+		BoardVo boardVo = boardService.selectOne(no);
 
 		model.addAttribute("boardVo", boardVo);
 		return "board/read";
 	}
 
 	@RequestMapping("/modifyForm")
-	public String modifyForm(Model model,@RequestParam int no) {
-		BoardVo boardVo=boardService.selectOne(no);
+	public String modifyForm(Model model, @RequestParam int no) {
+		BoardVo boardVo = boardService.selectOne(no);
 		model.addAttribute("boardVo", boardVo);
-		
+
 		return "board/modifyForm";
 	}
-	
+
 	@RequestMapping("/modify")
 	public String modify(@ModelAttribute BoardVo boardVo) {
 		boardService.modify(boardVo);
 		return "redirect:/board/list";
 	}
-	
+
 	@RequestMapping("/delete")
 	public String delete(@RequestParam int no) {
 		boardService.delete(no);
 		return "redirect:/board/list";
 	}
-	
-	@RequestMapping("/search")
-	public String search(Model model , @RequestParam String keyword) {
-		List<BoardVo> bList = boardService.search('%'+keyword+'%');
-		model.addAttribute("bList", bList);
-		return "board/list";
-	}
-	
+
 }

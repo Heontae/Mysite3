@@ -13,44 +13,43 @@ public class BoardService {
 
 	@Autowired
 	private BoardDao boardDao;
-	
 
-	public List<BoardVo> list(int page, List<Integer> list){
-		int start = page*5-4;
-		int End = page*5;
-		int count = boardDao.count();
-		
-		count = (int)Math.ceil(count/5.0);
-		
-		for(int i = 0; i < count; i++) {
-			list.add(i+1);
-		}
-		
-		BoardVo boardVo = new BoardVo(start,End);
+	public List<BoardVo> list(int page, String keyword) {
+		int start = page * 5 - 4;
+		int end = page * 5;
+
+		BoardVo boardVo = new BoardVo(start, end, keyword);
+
 		return boardDao.selectList(boardVo);
 	}
 
-	public int write(BoardVo boardVo){
+	public int Page(String keyword) {
+		int count = boardDao.count(keyword);
+		count = (int) Math.ceil(count / 5.0);
+		return count;
+	}
+
+	public String keyword(String keyword) {
+
+		return keyword;
+
+	}
+
+	public int write(BoardVo boardVo) {
 		return boardDao.insert(boardVo);
 	}
-	
-	public BoardVo selectOne(int num){
+
+	public BoardVo selectOne(int num) {
 		boardDao.hit(num);
 		return boardDao.selectOne(num);
 	}
-	
-	public int modify(BoardVo boardVo){
+
+	public int modify(BoardVo boardVo) {
 		return boardDao.update(boardVo);
 	}
-	
-	public int delete(int no){
+
+	public int delete(int no) {
 		return boardDao.delete(no);
 	}
-	
-	public List<BoardVo> search(String keyword){
-		List<BoardVo> bList = boardDao.searchUser(keyword);
-		return bList;
-	}
-	
-	
+
 }

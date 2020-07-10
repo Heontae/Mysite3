@@ -6,7 +6,7 @@ public class BoardVo {
 	private String title,content,reg_date,name;
 	
 	private int start,end;
-
+	private String keyword;
 
 	public BoardVo() {
 		
@@ -89,11 +89,20 @@ public class BoardVo {
 		this.name = name;
 	}
 	//페이징
-	public BoardVo(int start, int end) {
+	public BoardVo(int start, int end,String keyword) {
 		this.start = start;
 		this.end = end;
+		this.keyword = keyword;
 	}
 	
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
+	}
+
 	public int getStart() {
 		return start;
 	}
@@ -110,13 +119,17 @@ public class BoardVo {
 		this.end = end;
 	}
 
-	
-	//일반메소드
+
+
 	@Override
 	public String toString() {
 		return "BoardVo [no=" + no + ", hit=" + hit + ", user_no=" + user_no + ", title=" + title + ", content="
-				+ content + ", reg_date=" + reg_date + ", name=" + name + "]";
+				+ content + ", reg_date=" + reg_date + ", name=" + name + ", start=" + start + ", end=" + end
+				+ ", keyword=" + keyword + "]";
 	}
+
+	
+	
 
 
 	
