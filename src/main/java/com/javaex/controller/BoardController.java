@@ -33,8 +33,7 @@ public class BoardController {
 		model.addAttribute("keyword", boardService.keyword(keyword));
 
 		// 밑에 페이지 갯수
-		int count = boardService.Page(keyword);
-		model.addAttribute("count", count);
+		model.addAttribute("count", boardService.Page(keyword));
 
 		return "board/list";
 	}
