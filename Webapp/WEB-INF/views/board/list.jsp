@@ -79,7 +79,14 @@
 						<ul>
 							<li><a href="">◀</a></li>
 							<c:forEach var="i" begin="1" end="${count }">
-								<li><a href="/Mysite3/board/list?page=${i}&keyword=${keyword}"> ${i }</a></li>
+								<c:choose>
+									<c:when test="${page eq i}">
+										<li class="active"><a href="/Mysite3/board/list?page=${i}&keyword=${keyword}"> ${i }</a></li>
+									</c:when>
+									<c:otherwise>
+										<li><a href="/Mysite3/board/list?page=${i}&keyword=${keyword}"> ${i }</a></li>
+									</c:otherwise>
+								</c:choose>
 							</c:forEach>
 							
 							<li><a href="">▶</a></li>

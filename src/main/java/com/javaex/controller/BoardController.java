@@ -21,7 +21,7 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 
-	@RequestMapping("/list")
+	@RequestMapping("/list") // page파라미터 없으면 1로표기,keyword없으면 null표기
 	public String list(Model model, @RequestParam(value = "page", defaultValue = "1") int page,
 			@RequestParam(value = "keyword", required = false) String keyword) {
 
@@ -35,6 +35,8 @@ public class BoardController {
 		// 밑에 페이지 갯수
 		model.addAttribute("count", boardService.Page(keyword));
 
+		// 현재 페이지 번호
+		model.addAttribute("page", page);
 		return "board/list";
 	}
 
