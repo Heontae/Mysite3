@@ -44,7 +44,7 @@
 			and b.title LIKE '%'||#{keyword}||'%'
 		</if>		
 			<![CDATA[
-		 			        ORDER BY
+		 			ORDER BY
 			            b.no DESC
 			   	 	)
 			   	 	) 

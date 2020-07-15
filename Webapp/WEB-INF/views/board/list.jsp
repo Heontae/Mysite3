@@ -77,7 +77,7 @@
 		
 					<div id="paging">
 						<ul>
-							<li><a href="">◀</a></li>
+							<li><a href="${pageContext.request.contextPath}/reply/list?page=${page-1}&keyword=${keyword}">◀</a></li>
 							<c:forEach var="i" begin="1" end="${count }">
 								<c:choose>
 									<c:when test="${page eq i}">
@@ -89,7 +89,7 @@
 								</c:choose>
 							</c:forEach>
 							
-							<li><a href="">▶</a></li>
+							<li><a href="${pageContext.request.contextPath}/reply/list?page=${page+1}&keyword=${keyword}">▶</a></li>
 						</ul>
 						
 						

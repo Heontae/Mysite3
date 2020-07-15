@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="reply">
+
+	<select id="list" resultType="com.javaex.vo.ReplyVo" parameterType="com.javaex.vo.ReplyVo">
+		<![CDATA[
+		SELECT
+		    no,
+		    user_no,
+		    title,
+		    content,
+		    hit,
+		    reg_date,
+		    group_no,
+		    order_no,
+		    depth,
+		    name,
+		    state
+		FROM(
+			SELECT
+				ROWNUM rn,
+			    no,
+			    user_no,
+			    title,
+			    content,
+			    hit,
+			    reg_date,
+			    group_no,
+			    order_no,
+			    depth,
+			    name,
+			    state
+			FROM(
+					SELECT
+					    r.no,
+					    user_no,
+					    title,
+					    content,
+					    hit,
+					    reg_date,
+					    group_no,
+					    order_no,
+					    depth,
+					    name,
+					    state
+					FROM
+					    rboard r,
+					    users u
+					where
+					    r.user_no = u.no
+					    ]]>
+				<if test="keyword != null" >
+					and r.title LIKE '%'||#{keyword}||'%'
+				</if>	
+					    <![CDATA[
+					order by group_no DESC,
+							 order_no ASC
+			)
+			)
+			where		rn  >=#{start}
+			and		    rn  <=#{end}  
+			
+			]]>
+
+	</select>
+
+	<select id="count" resultType="int" parameterType="String">
+		<![CDATA[
+			select 
+				count(no)
+			from 
+				rboard
+		]]>
+			<if test="value !=null">
+				where title LIKE '%'||#{keyword}||'%'
+
+			</if>
+	</select>
+
+	<insert id="insert" parameterType="com.javaex.vo.ReplyVo">
+		<![CDATA[
+			INSERT INTO rboard VALUES (
+				    seq_rboard_no.NEXTVAL,
+				    #{user_no},
+				    #{title},
+				    #{content},
+				    '0',
+				    sysdate,
+				    seq_rboard_no.CURRVAL,
+				    '1',
+				    '0',
+				    'null'
+				)
+		]]>
+	</insert>
+
+	<select id="selectOne" parameterType="int"
+		resultType="com.javaex.vo.ReplyVo">
+		<![CDATA[
+			SELECT
+			    r.no,
+			    user_no,
+			    title,
+			    content,
+			    hit,
+			    reg_date,
+			    group_no,
+			    order_no,
+			    depth,
+			    name,
+			    state
+			FROM
+			    rboard r,
+			    users u
+			where
+			    r.user_no = u.no
+			and	
+				r.no	=	#{no}
+		]]>
+	</select>
+
+
+	<insert id="reinsert" parameterType="com.javaex.vo.ReplyVo">
+		<![CDATA[
+			INSERT INTO rboard VALUES (
+				    seq_rboard_no.NEXTVAL,
+				    #{user_no},
+				    #{title},
+				    #{content},
+				    '0',
+				    sysdate,
+				    ${group_no},
+				    ${order_no}+1,
+				    ${depth}+1,
+				    'null'
+				)
+		]]>
+	</insert>
+
+	<update id="reupdate" parameterType="com.javaex.vo.ReplyVo">
+		<![CDATA[
+			UPDATE 	rboard
+			SET
+			    order_no = order_no+1
+			WHERE
+			    group_no = ${group_no}
+			and
+				order_no > ${order_no}
+		]]>
+	</update>
+
+
+	<update id="hit" parameterType="int">
+	<![CDATA[
+			update rboard
+			set hit= hit+1 
+			where no = #{no}
+	]]>
+	</update>
+
+	<update id="update" parameterType="com.javaex.vo.ReplyVo">
+	<![CDATA[
+			update rboard
+			set title = #{title},
+				content = #{content} 
+			where no = #{no}
+	]]>
+	</update>
+
+	<update id="delete" parameterType="int">
+	<![CDATA[
+			UPDATE rboard
+			SET 
+				state = 'delete'
+			WHERE
+			    no = #{no}
+	]]>
+	</update>
+</mapper>
