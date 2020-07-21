@@ -29,7 +29,7 @@
 		<div id="content">
 
 			<div id="content-head">
-				<h3>게시판</h3>
+				<h3>댓글게시판</h3>
 				<div id="location">
 					<ul>
 						<li>홈</li>
@@ -69,12 +69,12 @@
 									<c:choose>
 
 										<c:when test="${RList.state =='null' }">
-											<td class="text-left">
-											<c:forEach begin="1" end="${RList.depth }">
+											<td class="text-left"><c:forEach begin="1"
+													end="${RList.depth }">
 													<span>&nbsp;</span>
-												</c:forEach> 
-												<c:if test="${RList.depth != 0 }">
-													<a href="${pageContext.request.contextPath}/reply/read?no=${RList.no}">
+												</c:forEach> <c:if test="${RList.depth != 0 }">
+													<a
+														href="${pageContext.request.contextPath}/reply/read?no=${RList.no}">
 														└${RList.title } </a>
 												</c:if> <c:if test="${RList.depth == 0 }">
 													<a
@@ -91,10 +91,10 @@
 										</c:when>
 
 										<c:when test="${RList.state != 'null' }">
-											<td class="text-left">
-											<c:forEach begin="1" end="${RList.depth }">
-												<span>&nbsp;</span>
-											</c:forEach>
+											<td class="text-left"><c:forEach begin="1"
+													end="${RList.depth }">
+													<span>&nbsp;</span>
+												</c:forEach>
 											<td class="text-left">삭제된 게시물입니다.</td>
 											<td></td>
 											<td></td>
@@ -112,7 +112,10 @@
 
 					<div id="paging">
 						<ul>
-							<li><a href="${pageContext.request.contextPath}/reply/list?page=${page-1}&keyword=${keyword}">◀</a></li>
+							<c:if test="${page != 1 }">
+								<li><a
+									href="${pageContext.request.contextPath}/reply/list?page=${page-1}&keyword=${keyword}">◀</a></li>
+							</c:if>
 							<c:forEach var="i" begin="1" end="${count }">
 								<c:choose>
 									<c:when test="${page eq i}">
@@ -127,7 +130,10 @@
 									</c:otherwise>
 								</c:choose>
 							</c:forEach>
-							<li><a href="${pageContext.request.contextPath}/reply/list?page=${page+1}&keyword=${keyword}">▶</a></li>
+							<c:if test="${page<count }">
+								<li><a
+									href="${pageContext.request.contextPath}/reply/list?page=${page+1}&keyword=${keyword}">▶</a></li>
+							</c:if>
 						</ul>
 
 

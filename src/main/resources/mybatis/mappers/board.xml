@@ -48,7 +48,7 @@
 			            b.no DESC
 			   	 	)
 			   	 	) 
-			where		rn  >=#{start}
+			where		rn  >=#{start}+1
 			and		    rn  <=#{end}  
 			]]>
 

@@ -32,5 +32,15 @@ public class GuestbookDao {
 		
 		return sqlSession.delete("guestbook.delete",guestVo);
 	}
-		 
+		
+	//방명록 글 저장(ajax)
+	public void insertSelectKey(GuestbookVo guestbookVo) {
+		sqlSession.insert("guestbook.insertSelectKey",guestbookVo);
+
+	}
+	
+	//정보 하나 가져오기(ajax)
+	public GuestbookVo selectByNo(int no ) {
+		return sqlSession.selectOne("guestbook.selectByNo",no);
+	}
 }

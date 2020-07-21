@@ -24,14 +24,28 @@ public class UserService {
 		return userDao.selectUser(userVo);
 	}
 
-	//회원정보수정
+	// 회원정보수정
 	public int modify(UserVo userVo) {
-		
+
 		return userDao.userUpdate(userVo);
 	}
-	
-	//회원정보한명(no값으로)
+
+	// 회원정보한명(no값으로)
 	public UserVo SelectUserOnd(int num) {
 		return userDao.selectUserOne(num);
+	}
+
+	// id중복체크(ajax)
+	public boolean idcheck(String id) {
+		UserVo userVo = userDao.selectUser(id);
+		boolean result = true;
+		
+		if(userVo == null) {
+			result = true;
+		}
+		else {
+			result = false;
+		}
+		return  result;
 	}
 }

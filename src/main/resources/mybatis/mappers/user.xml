@@ -28,7 +28,7 @@
 		]]>
 	</select>
 
-		<!-- 회원유무 검색. -->
+	<!-- 회원유무 검색. -->
 	<select id="selectUserOne" parameterType="int"
 		resultType="com.javaex.vo.UserVo">
 		<![CDATA[
@@ -46,6 +46,17 @@
 						gender	 = #{gender}
 			WHERE		no = #{no}
 		]]>
-	
+
 	</update>
+
+	<!-- ajax 아이디 중복확인. -->
+	<select id="selectById" parameterType="String"
+		resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+			SELECT		no,
+						id
+			FROM		users
+			where		id=#{id}
+		]]>
+	</select>
 </mapper>

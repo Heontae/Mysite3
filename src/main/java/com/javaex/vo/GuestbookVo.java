@@ -3,37 +3,37 @@ package com.javaex.vo;
 public class GuestbookVo {
 	//필드
 	private int no;
-	private String name,pw,content,reg_date;
+	private String name,password,content,reg_date;
 	
 	//생성자
 	public GuestbookVo() {
 		
 	}
 	
-	public GuestbookVo(int no, String pw) {
+	public GuestbookVo(int no, String password) {
 		this.no = no;
-		this.pw = pw;
+		this.password = password;
 	}
 
-	public GuestbookVo(int no, String name, String pw, String content, String reg_date) {
+	public GuestbookVo(int no, String name, String password, String content, String reg_date) {
 		this.no = no;
 		this.name = name;
-		this.pw = pw;
+		this.password = password;
 		this.content = content;
 		this.reg_date = reg_date;
 	}
 
-	public GuestbookVo(String name, String pw, String content, String reg_date) {
+	public GuestbookVo(String name, String password, String content, String reg_date) {
 		this.name = name;
-		this.pw = pw;
+		this.password = password;
 		this.content = content;
 		this.reg_date = reg_date;
 	}
 
-	public GuestbookVo(String name, String pw, String content) {
+	public GuestbookVo(String name, String password, String content) {
 		super();
 		this.name = name;
-		this.pw = pw;
+		this.password = password;
 		this.content = content;
 	}
 
@@ -54,12 +54,12 @@ public class GuestbookVo {
 		this.name = name;
 	}
 
-	public String getPw() {
-		return pw;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setPw(String pw) {
-		this.pw = pw;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getContent() {
@@ -81,7 +81,7 @@ public class GuestbookVo {
 	//toString
 	@Override
 	public String toString() {
-		return "guestbookVo [no=" + no + ", name=" + name + ", pw=" + pw + ", content=" + content + ", reg_date="
+		return "guestbookVo [no=" + no + ", name=" + name + ", password=" + password + ", content=" + content + ", reg_date="
 				+ reg_date + "]";
 	}
 	

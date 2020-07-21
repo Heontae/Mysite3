@@ -53,4 +53,10 @@ public class GuestController {
 		}
 	}
 
+	//ajax 방명록
+	@RequestMapping("/ajaxList")
+	public String ajaxList() {
+		
+		return "guestbook/ajaxList";
+	}
 }

@@ -54,7 +54,7 @@
 								<th><label class="form-text" for="input-uname">이름</label></th>
 								<td><input id="input-uname" type="text" name="name"></td>
 								<th><label class="form-text" for="input-pass">패스워드</label></th>
-								<td><input id="input-pass" type="password" name="pw"></td>
+								<td><input id="input-pass" type="password" name="password"></td>
 							</tr>
 							<tr>
 								<td colspan="4"><textarea name="content" cols="72" rows="5"></textarea></td>
@@ -94,7 +94,8 @@
 			<!-- //guestbook -->
 		</div>
 		<!-- //content  -->
-
+		<div class="clear"></div>
+		
 		<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		<!-- //footer -->
 

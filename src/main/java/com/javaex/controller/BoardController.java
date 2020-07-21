@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -26,20 +27,13 @@ public class BoardController {
 			@RequestParam(value = "keyword", required = false) String keyword) {
 
 		// 전체 리스트(검색가능)
-		List<BoardVo> bList = boardService.list(page, keyword);
-		model.addAttribute("bList", bList);
+		Map<String,Object> pMap = boardService.list(page, keyword);
+		
+		model.addAttribute("pMap", pMap);
 
-		// 검색하고 페이지 이동해도 키워드값 유지
-		model.addAttribute("keyword", boardService.keyword(keyword));
-
-		// 밑에 페이지 갯수
-		model.addAttribute("count", boardService.Page(keyword));
-
-		// 현재 페이지 번호
-		model.addAttribute("page", page);
 		return "board/list";
 	}
-
+	//쓰기
 	@RequestMapping("/writeForm")
 	public String wirteForm(Model model) {
 
@@ -53,7 +47,7 @@ public class BoardController {
 		boardService.write(boardVo);
 		return "redirect:/board/list";
 	}
-
+	//보기
 	@RequestMapping("/read")
 	public String read(Model model, @RequestParam int no) {
 		BoardVo boardVo = boardService.selectOne(no);
@@ -61,7 +55,7 @@ public class BoardController {
 		model.addAttribute("boardVo", boardVo);
 		return "board/read";
 	}
-
+	//수정
 	@RequestMapping("/modifyForm")
 	public String modifyForm(Model model, @RequestParam int no) {
 		BoardVo boardVo = boardService.selectOne(no);
@@ -75,7 +69,7 @@ public class BoardController {
 		boardService.modify(boardVo);
 		return "redirect:/board/list";
 	}
-
+	//삭제
 	@RequestMapping("/delete")
 	public String delete(@RequestParam int no) {
 		boardService.delete(no);

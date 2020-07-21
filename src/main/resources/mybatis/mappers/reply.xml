@@ -3,7 +3,8 @@
 
 <mapper namespace="reply">
 
-	<select id="list" resultType="com.javaex.vo.ReplyVo" parameterType="com.javaex.vo.ReplyVo">
+	<select id="list" resultType="com.javaex.vo.ReplyVo"
+		parameterType="com.javaex.vo.ReplyVo">
 		<![CDATA[
 		SELECT
 		    no,
@@ -50,9 +51,10 @@
 					where
 					    r.user_no = u.no
 					    ]]>
-				<if test="keyword != null" >
-					and r.title LIKE '%'||#{keyword}||'%'
-				</if>	
+		<if test="keyword != null and keyword != ''  ">
+			and r.title LIKE '%'||#{keyword}||'%'
+			and state = 'null'
+		</if>	
 					    <![CDATA[
 					order by group_no DESC,
 							 order_no ASC
@@ -72,10 +74,10 @@
 			from 
 				rboard
 		]]>
-			<if test="value !=null">
-				where title LIKE '%'||#{keyword}||'%'
+		<if test="value !=null " >
+			where title LIKE '%'||#{keyword}||'%'
 
-			</if>
+		</if>
 	</select>
 
 	<insert id="insert" parameterType="com.javaex.vo.ReplyVo">

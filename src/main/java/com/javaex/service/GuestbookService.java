@@ -29,4 +29,16 @@ public class GuestbookService {
 		
 		return guestDao.delete(guestVo);
 	}
+	
+	//글 저장 (ajax)
+	public GuestbookVo addGuest(GuestbookVo guestbookVo) {
+		guestDao.insertSelectKey(guestbookVo);
+		
+		int no = guestbookVo.getNo(); // **중요**
+		
+		System.out.println("select로받은 no값:" + no);
+		
+
+		return guestDao.selectByNo(no);//no값으로 하나의 정보 가져오기
+	}
 }
