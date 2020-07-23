@@ -12,7 +12,6 @@
 	font-size: 14px;
 }
 
-
 #file [type='submit'] {
 	padding: 10px 10px 10px 10px;
 }
@@ -152,18 +151,18 @@
 }
 
 /* 게시판 페이징 */
-#board #list #paging {
+#paging {
 	margin: 0px auto;
 	width: 310px;
 }
 
-#board #list #paging ul {margin: 10px 5px 10px 5px;}
-#board #list #paging ul>li{
+#paging ul {margin: 10px 5px 10px 5px;}
+#paging ul>li{
 	float: left;
 	margin: 0px 8px 0px 8px;
 }
 
-#board #list #paging ul>li.active{
+#paging ul>li.active{
 	font-size: 14px;
 	font-weight: bold;
 }
@@ -177,4 +176,6 @@
 	font-size: 14px;
 	float: right;
 }
+
+
 

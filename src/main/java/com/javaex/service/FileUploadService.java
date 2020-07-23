@@ -20,7 +20,7 @@ public class FileUploadService {
 		String orgName = file.getOriginalFilename();
 		
 		//확장자
-		String exName = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+		String exName = orgName.substring(orgName.lastIndexOf("."));
 		
 		//저장파일이름
 		String savaName = System.currentTimeMillis() + UUID.randomUUID().toString()+exName;
@@ -53,5 +53,7 @@ public class FileUploadService {
 		
 		return savaName;
 		//파일-->필요한정보추출-->DB에저장 (DB: no,orgName,savaName,filePath,fileSize)
+	
+	
 	}
 }
